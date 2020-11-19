@@ -1,0 +1,123 @@
+swagger: '2.0'
+info:
+  description: QS WebApp API ドキュメント
+  version: 0.0.1
+  title: QS WebApp REST APIs
+host: localhost:8080
+basePath: /db
+tags:
+  - name: db
+    description: DB related API
+schemes:
+  - http
+  - https
+paths:
+  /docs:
+    get:
+      tags:
+        - db
+      summary: 複数取得
+      description: 複数取得
+      produces:
+        - application/json
+      parameters:
+        - name: limit
+          type: integer
+          in: query
+          description: limit
+        - name: offset
+          type: integer
+          in: query
+          description: offset
+      responses:
+        '200':
+          description: 成功
+        '400':
+          description: エラー
+  /doc:
+    post:
+      tags:
+        - db
+      summary: 作成
+      description: 作成
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/DocRequest'
+      responses:
+        '200':
+          description: 成功
+        '400':
+          description: エラー
+  /doc/{id}:
+    get:
+      tags:
+        - db
+      summary: 取得
+      description: 取得
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          type: string
+          in: path
+          description: ID
+          required: true
+      responses:
+        '200':
+          description: 成功
+        '400':
+          description: エラー
+    put:
+      tags:
+        - db
+      summary: 更新
+      description: 更新
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          type: string
+          in: path
+          description: ID
+          required: true
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/DocRequest'
+      responses:
+        '200':
+          description: 成功
+        '400':
+          description: エラー
+    delete:
+      tags:
+        - db
+      summary: 削除
+      description: 削除
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          type: string
+          in: path
+          description: ID
+          required: true
+      responses:
+        '200':
+          description: 成功
+        '400':
+          description: エラー
+definitions:
+  DocRequest:
+    type: object
+    properties:
+      id:
+        type: string
+        description: ID
+      name:
+        type: string
+        description: 名前
