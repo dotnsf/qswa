@@ -23,8 +23,23 @@ app.use( '/db', dbapi );
 app.get( '/', function( req, res ){
   var r = dbapi.getDocs();
   var docs = ( ( r.status == 200 && r.docs ) ? r.docs : [] );
-  res.render( 'list', { docs: docs } );
+  res.render( 'docs', { docs: docs } );
 });
+
+app.get( '/doc/:id', function( req, res ){
+  var id = req.params.id;
+  if( id ){
+    var r = dbapi.getDoc( id );
+    if( r.status == 200 && r.doc ){
+      res.render( 'doc', { doc: r.doc } );
+    }else{
+      res.render( 'doc', { doc: null } );
+    }
+  }else{
+    res.render( 'doc', { doc: null } );
+  }
+});
+
 
 function timestamp2datetime( ts ){
   if( ts ){
