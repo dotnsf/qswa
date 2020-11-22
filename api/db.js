@@ -1,19 +1,19 @@
-//. app.js
-
+//. db.js
 var express = require( 'express' ),
     bodyParser = require( 'body-parser' ),
-    fs = require( 'fs' ),
-    multer = require( 'multer' ),
     router = express();
 var settings = require( '../settings' );
 
+//. メモリデータストアを有効にする
 if( settings.memdb ){
   router._docs = {};
 }
 
+//. POST メソッドで JSON データを受け取れるようにする
 router.use( bodyParser.urlencoded( { extended: true } ) );
 router.use( bodyParser.json() );
 
+//. 新規作成用関数
 router.createDoc = function( doc ){
   if( !doc.id ){
     doc.id = generatedId();
@@ -32,6 +32,7 @@ router.createDoc = function( doc ){
   }
 };
 
+//. １件取得用関数
 router.getDoc = function( id ){
   if( id ){
     if( router._docs[id] ){
@@ -44,6 +45,7 @@ router.getDoc = function( id ){
   }
 };
 
+//. 複数件取得用関数
 router.getDocs = function( limit, offset ){
   var docs = [];
   Object.keys( router._docs ).forEach( function( id ){
@@ -60,6 +62,7 @@ router.getDocs = function( limit, offset ){
   return { status: 200, limit: limit, offset: offset, docs: docs };
 }
 
+//. １件更新用関数
 router.updateDoc = function( doc ){
   if( !doc.id ){
     return { status: 400, error: 'parameter id needed.' };
@@ -77,6 +80,7 @@ router.updateDoc = function( doc ){
   }
 };
 
+//. １件削除用関数
 router.deleteDoc = function( id ){
   if( !id ){
     return { status: 400, error: 'parameter id needed.' };
@@ -90,6 +94,7 @@ router.deleteDoc = function( id ){
   }
 };
 
+//. POST /db/doc
 router.post( '/doc', function( req, res ){
   res.contentType( 'application/json; charset=utf-8' );
 
@@ -107,6 +112,7 @@ router.post( '/doc', function( req, res ){
   }
 });
 
+//. GET /db/doc/:id
 router.get( '/doc/:id', function( req, res ){
   res.contentType( 'application/json; charset=utf-8' );
 
@@ -123,6 +129,7 @@ router.get( '/doc/:id', function( req, res ){
   }
 });
 
+//. GET /db/docs
 router.get( '/docs', function( req, res ){
   res.contentType( 'application/json; charset=utf-8' );
 
@@ -135,6 +142,7 @@ router.get( '/docs', function( req, res ){
   res.end();
 });
 
+//. PUT /db/doc/:id
 router.put( '/doc/:id', function( req, res ){
   res.contentType( 'application/json; charset=utf-8' );
 
@@ -160,6 +168,7 @@ router.put( '/doc/:id', function( req, res ){
   }
 });
 
+//. DELETE /db/doc/:id
 router.delete( '/doc/:id', function( req, res ){
   res.contentType( 'application/json; charset=utf-8' );
 
@@ -176,6 +185,7 @@ router.delete( '/doc/:id', function( req, res ){
   }
 });
 
+//. ID作成用関数
 function generateId(){
   var s = 1000;
   var id = '' + ( new Date().getTime().toString(16) ) + Math.floor( s * Math.random() ).toString(16);
@@ -184,4 +194,5 @@ function generateId(){
 }
 
 
+//. router をエクスポート
 module.exports = router;

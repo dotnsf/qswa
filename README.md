@@ -2,7 +2,7 @@
 
 ## Overview
 
-Quite Simple Web Application sample
+Quite Simple Web Application sample with document CRUD.
 
 
 ## Copyright
