@@ -2,7 +2,7 @@
 
 ## Overview
 
-Quite Simple Web Application sample with document CRUD.
+**Quite Simple Web Application** sample with document CRUD.
 
 
 ## How to run
@@ -34,6 +34,36 @@ Quite Simple Web Application sample with document CRUD.
 
   - `http://localhost:8080/_doc/`
 
+
+## Files & Folders
+
+```
+|- api/            : Folder for APIs
+|   |- db.js       : DB CRUD API
+|
+|- node_modules/   : Dependent Libraries(, which will be created after `$ npm install`)
+|
+|- public/         : Static files (JavaScript, CSS, Images, and Swagger documents)
+|
+|- views/          : HTML templates
+|   |- doc.ejs     : To show single document
+|   |- docs.ejs    : To show multiple documents list
+|   |- edit.ejs    : To edit(create/update) single document
+|   |- footer.ejs  : Common footer
+|   |- header.ejs  : Common header
+|   |- navi.ejs    : Common navigation
+|
+|- .cfignore       : Ignore files for Cloud Foundry deploy
+|- .eslintignore   : Ignore files for lint
+|- .eslintrc.js    : Resource files for lint
+|- .gitignore      : Ignore files for Git
+|- app.js          : Main file
+|- Dockerfile      : Docker file
+|- package.json    : Package file
+|- README.md       : This file
+|- settings.js     : Setting file
+
+```
 
 ## Copyright
 
