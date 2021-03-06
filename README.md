@@ -32,7 +32,7 @@ Quite Simple Web Application sample with document CRUD.
 
 - Browse Swagger document:
 
-  - `http://localhost:8080/`
+  - `http://localhost:8080/_doc/`
 
 
 ## Copyright
