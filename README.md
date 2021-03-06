@@ -1,4 +1,4 @@
-# QS Web App
+# QSWA(Quite Simple Web Application)
 
 ## Overview
 
@@ -13,7 +13,7 @@ Quite Simple Web Application sample with document CRUD.
 
 - Git clone or download source code:
 
-  - https://github.com/dotnsf/qswebapp.git
+  - https://github.com/dotnsf/qswa.git
 
 - Install dependent libraries:
 
@@ -37,4 +37,4 @@ Quite Simple Web Application sample with document CRUD.
 
 ## Copyright
 
-2020 [K.Kimura @ Juge.Me](https://github.com/dotnsf) all rights reserved.
+2020-2021 [K.Kimura @ Juge.Me](https://github.com/dotnsf) all rights reserved.

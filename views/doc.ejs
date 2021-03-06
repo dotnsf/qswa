@@ -1,41 +1,43 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8"/>
+<%- include('./header', {}) %>
 <title>Doc</title>
-<script type="text/javascript" src="//code.jquery.com/jquery-2.2.4.min.js"></script>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-<meta name="apple-mobile-web-app-title" content="QS WebApp"/>
-
-<style type="text/css">
-html, body{
-  text-align: center;
-  background-color: #fafafa;
-  font-size: 20px;
-  color: #333;
+<script>
+function editDoc( id ){
+  if( id ){
+    window.location.href = '/edit/' + id;
+  }
 }
-</style>
+
+function deleteDoc( id ){
+  if( id && confirm( '本当に削除しますか？' ) ){
+    //. API を使って削除
+    $.ajax({
+      type: 'DELETE',
+      url: '/db/doc/' + id,
+      success: function( result ){
+        //. 削除処理が成功したらトップページへ
+        window.location.href = '/';
+      },
+      error: function( e0, e1, e2 ){
+        console.log( 'DELEte error: ', e0, e1, e2 );
+      }
+    });
+  }
+}
+</script>
+  
 </head>
 <body>
 
-<nav class="navbar fixed-top">
-  <a class="navbar-brand" href="#">QS WebApp</a>
-  <div class="navbar-nav mr-auto">
-  </div>
-  <div class="navbar-nav">
-    <li class="nav-item" id="navitem">
-    </li>
-  </div>
-</nav>
+<%- include('./navi', {}) %>
 
 <div class="container">
 <% if( doc ){ %>
+  <div style="text-align: right;">
+    <button class="btn btn-warning" onClick="editDoc('<%= doc.id %>');">編集</button>
+    <button class="btn btn-danger" onClick="deleteDoc('<%= doc.id %>');">削除</button>
+  </div>
+
   <table class="table table-bordered">
   <tr>
     <td>ID</td>
@@ -53,9 +55,7 @@ html, body{
 <% } %>
 </div>
 
-<script>
-$(function(){
-});
-</script>
+<%- include('./footer', {}) %>
+
 </body>
 </html>

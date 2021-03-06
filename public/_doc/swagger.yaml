@@ -1,8 +1,8 @@
 swagger: '2.0'
 info:
-  description: QS WebApp API ドキュメント
+  description: QSWA API ドキュメント
   version: 0.0.1
-  title: QS WebApp REST APIs
+  title: QSWA REST APIs
 host: localhost:8080
 basePath: /db
 tags:
@@ -115,9 +115,6 @@ definitions:
   DocRequest:
     type: object
     properties:
-      id:
-        type: string
-        description: ID
       name:
         type: string
         description: 名前

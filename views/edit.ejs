@@ -1,0 +1,76 @@
+<%- include('./header', {}) %>
+<title>Edit</title>
+
+<script>
+$(function(){
+});
+
+//. 保存ボタン
+function saveDoc(){
+  //. 入力内容の読み取り
+  var id = $('#id').val();
+  var name = $('#name').val();
+  var data = { name: name };
+  if( id ){
+    //. API を使って更新
+    $.ajax({
+      url: '/db/doc/' + id,
+      type: 'PUT',
+      data: data,
+      success: function( result ){
+        //. 更新処理が成功したらトップページへ
+        window.location.href = '/';
+      },
+      error: function( e0, e1, e2 ){
+        console.log( 'PUT error: ', e0, e1, e2 );
+      }
+    });
+  }else{
+    //. API を使って保存
+    $.ajax({
+      url: '/db/doc',
+      type: 'POST',
+      data: data,
+      success: function( result ){
+        //. 保存処理が成功したらトップページへ
+        window.location.href = '/';
+      },
+      error: function( e0, e1, e2 ){
+        console.log( 'POST error: ', e0, e1, e2 );
+      }
+    });
+  }
+}
+</script>
+
+</head>
+<body>
+
+<%- include('./navi', {}) %>
+
+<div class="container">
+  <table class="table table-bordered">
+  <tr>
+    <td>ID</td>
+    <td>
+      <input id="id" name="id" type="text" class="form-control" value="<% if( doc ){ %><%= doc.id %><% } %>" readonly/>
+    </td>
+  </tr>
+  <tr>
+    <td>名前</td>
+    <td>
+      <input id="name" name="name" type="text" class="form-control" value="<% if( doc ){ %><%= doc.name %><% } %>"/>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <button id="save_btn" class="btn btn-warning" onClick="saveDoc();">保存</button>
+    </td>
+  </tr>
+  </table>
+</div>
+
+<%- include('./footer', {}) %>
+
+</body>
+</html>

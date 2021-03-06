@@ -1,4 +1,4 @@
-//. db.js
+//. db.js(シンプル・メモリDB)
 var express = require( 'express' ),
     bodyParser = require( 'body-parser' ),
     router = express();
@@ -16,7 +16,7 @@ router.use( bodyParser.json() );
 //. 新規作成用関数
 router.createDoc = function( doc ){
   if( !doc.id ){
-    doc.id = generatedId();
+    doc.id = generateId();
   }
   if( typeof doc.id == 'integer' ){
     doc.id = '' + doc.id;
@@ -24,7 +24,7 @@ router.createDoc = function( doc ){
   if( router._docs[doc.id] ){
     return { status: 400, error: 'doc id = ' + doc.id + ' existed.' };
   }else{
-    var ts = ( new Date() ).getTime();
+    var ts = timestamp2datetime( ( new Date() ).getTime() );
     doc.created = ts;
     doc.updated = ts;
     router._docs[doc.id] = doc;
@@ -69,7 +69,7 @@ router.updateDoc = function( doc ){
   }else{
     if( router._docs[doc.id] ){
       var old_doc = router._docs[doc.id];
-      var ts = ( new Date() ).getTime();
+      var ts = timestamp2datetime( ( new Date() ).getTime() );
       doc.created = old_doc.created;
       doc.updated = ts;
       router._docs[doc.id] = doc;
@@ -133,7 +133,7 @@ router.get( '/doc/:id', function( req, res ){
 router.get( '/docs', function( req, res ){
   res.contentType( 'application/json; charset=utf-8' );
 
-  var limit = ( req.query.limit ? parseInt( req.query.limit ) : 10 );
+  var limit = ( req.query.limit ? parseInt( req.query.limit ) : 0 );
   var offset = ( req.query.offset ? parseInt( req.query.offset ) : 0 );
 
   var r = router.getDocs( limit, offset );
@@ -193,6 +193,20 @@ function generateId(){
   return id;
 }
 
+//. タイムスタンプ->日付時刻文字列
+function timestamp2datetime( ts ){
+  if( !ts ){ ts = 0; }
+  var dt = new Date( ts );
+  var yyyy = dt.getFullYear();
+  var mm = dt.getMonth() + 1;
+  var dd = dt.getDate();
+  var hh = dt.getHours();
+  var nn = dt.getMinutes();
+  var ss = dt.getSeconds();
+  var datetime = yyyy + '-' + ( mm < 10 ? '0' : '' ) + mm + '-' + ( dd < 10 ? '0' : '' ) + dd
+    + ' ' + ( hh < 10 ? '0' : '' ) + hh + ':' + ( nn < 10 ? '0' : '' ) + nn + ':' + ( ss < 10 ? '0' : '' ) + ss;
+  return datetime;
+}
 
 //. router をエクスポート
 module.exports = router;
