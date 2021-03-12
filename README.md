@@ -5,7 +5,7 @@
 **Quite Simple Web Application** sample with document CRUD.
 
 
-## How to run
+## How to run in CLI
 
 - Install Node.js:
 
@@ -26,6 +26,60 @@
   - If you want to run app with your selected port(8081, for example), set as port variable:
 
     - `$ port=8081 node app`
+
+- Access to qswa
+
+  - `http://localhost:8080/`
+
+### How to run in docker
+
+- Install docker:
+
+  - `$ curl -sSL https://get.docker.com | sh`
+  
+  - `$ sudo usermod -a -G docker pi`
+
+- Pull image
+
+  - `$ docker pull dotnsf/qswa`
+  
+- Run image
+
+  - `docker run --name qswa -d -p 8080:8080 dotnsf/qswa`
+
+- Access to qswa
+
+  - `http://localhost:8080/`
+
+### How to run with Eclipse Orion editor in docker-compose ( for education purpose )
+
+- Install docker:
+
+  - `$ curl -sSL https://get.docker.com | sh`
+  
+  - `$ sudo usermod -a -G docker pi`
+
+- Pull images
+
+  - `$ docker pull dotnsf/qswa`
+  
+  - `$ docker pull cloudeity/orion`
+
+- Build images
+
+  - `$ docker-compose build`
+  
+- Run images
+
+  - `docker-compose up -d`
+
+- Access to qswa
+
+  - `http://localhost:8080/`
+
+- Access to orion
+
+  - `http://localhost:8081/`
 
 
 ## REST API document

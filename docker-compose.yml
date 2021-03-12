@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  orion:
+    image: cloudeity/orion
+    depends_on:
+      - web
+    volumes:
+      - .:/opt/orion.client/modules/orionode/.workspace
+    restart: always
+    ports:
+      - "8081:8081"
+  web:
+    build: .
+    image: node:10-alpine
+    tty: true
+    volumes:
+      - ./:/src
+    working_dir: /src
+    ports:
+      - "8080:8080"
