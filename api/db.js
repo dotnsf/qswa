@@ -94,6 +94,12 @@ router.deleteDoc = function( id ){
   }
 };
 
+//. リセット関数
+router.deleteDocs = function(){
+  router._docs = {};
+  return { status: 200 };
+};
+
 //. POST /db/doc
 router.post( '/doc', function( req, res ){
   res.contentType( 'application/json; charset=utf-8' );
@@ -183,6 +189,16 @@ router.delete( '/doc/:id', function( req, res ){
     res.write( JSON.stringify( { status: 400, error: 'no parameter id found.' } ) );
     res.end();
   }
+});
+
+//. DELETE /db/docs
+router.delete( '/docs', function( req, res ){
+  res.contentType( 'application/json; charset=utf-8' );
+
+  var r = router.deleteDocs();
+  res.status( r.status );
+  res.write( JSON.stringify( r, null, 2 ) );
+  res.end();
 });
 
 //. ID作成用関数

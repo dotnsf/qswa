@@ -34,6 +34,18 @@ paths:
           description: 成功
         '400':
           description: エラー
+    delete:
+      tags:
+        - db
+      summary: 全削除
+      description: 全削除
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: 成功
+        '400':
+          description: エラー
   /doc:
     post:
       tags:
